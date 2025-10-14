@@ -1,0 +1,82 @@
+package com.app.logica;
+
+import java.io.Serializable;
+
+import jakarta.persistence.Basic;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
+public class Artista implements Serializable {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+
+	@Basic
+	private String nombre;
+	private String generoMusical;
+	private String nacionalidad;
+	private int edad;
+
+	public Artista() {
+
+	}
+
+	public Artista(String nombre, String generoMusical, String nacionalidad, int edad) {
+		super();
+		this.nombre = nombre;
+		this.generoMusical = generoMusical;
+		this.nacionalidad = nacionalidad;
+		this.edad = edad;
+	}
+
+	@Override
+	public String toString() {
+		return "ARTISTA: \n" + "ID: " + getId() + "\nNombre: " + getNombre() + "\nGenero musical: " + getGeneroMusical()
+				+ "\nNacionalidad: " + getNacionalidad() + "\nEdad: " + getEdad();
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getGeneroMusical() {
+		return generoMusical;
+	}
+
+	public void setGeneroMusical(String generoMusical) {
+		this.generoMusical = generoMusical;
+	}
+
+	public String getNacionalidad() {
+		return nacionalidad;
+	}
+
+	public void setNacionalidad(String nacionalidad) {
+		this.nacionalidad = nacionalidad;
+	}
+
+	public int getEdad() {
+		return edad;
+	}
+
+	public void setEdad(int edad) {
+		this.edad = edad;
+	}
+
+}
