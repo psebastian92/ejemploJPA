@@ -7,60 +7,68 @@ import com.app.persistencia.ControladoraPersistencia;
 public class ControladoraLogica {
 
 	// La controladora de persistencia se encarga de hablar con la BD.
-	// Desde aquí la usamos como "puente" para guardar datos.
+	// Desde aquï¿½ la usamos como "puente" para guardar datos.
 	ControladoraPersistencia controlPersis = new ControladoraPersistencia();
 
 	// ----- ARTISTA -----
-	// Método de la capa lógica para crear un artista.
+	// Mï¿½todo de la capa lï¿½gica para crear un artista.
 	// Antes de guardarlo en la BD, se hacen validaciones.
 	public void crearArtista(Artista art) throws Exception {
-		// Validación: el artista debe tener un nombre
+		// Validaciï¿½n: el artista debe tener un nombre
 		if (art.getNombre() == null || art.getNombre().isEmpty()) {
 			throw new Exception("El artista debe tener un nombre.");
 		}
-		// Validación: el artista debe tener un género musical
+		// Validaciï¿½n: el artista debe tener un gï¿½nero musical
 		if (art.getGeneroMusical() == null || art.getGeneroMusical().isEmpty()) {
-			throw new Exception("El artista debe tener un género musical.");
+			throw new Exception("El artista debe tener un gï¿½nero musical.");
 		}
-		// Validación: la edad debe ser positiva
+		
+		// Validaciï¿½n: el artista debe tener una nacionalidad
+		if (art.getNacionalidad() == null || art.getNacionalidad().isEmpty()) {
+			throw new Exception("El artista debe tener una nacionalidad.");
+		}
+		
+		// Validaciï¿½n: la edad debe ser positiva
 		if (art.getEdad() <= 0) {
 			throw new Exception("La edad del artista debe ser mayor a 0.");
+		} else if (art.getEdad()  > 120) {
+			throw new Exception("La edad del artista debe ser menor a 120.");
 		}
 
-		// Si pasa todas las validaciones, recién ahí se manda a la persistencia
+		// Si pasa todas las validaciones, reciï¿½n ahï¿½ se manda a la persistencia
 		controlPersis.crearArtista(art);
 	}
 
-	// Método de la capa lógica para buscar UN artista.
-	// se solicita el ID como parámetro
+	// Mï¿½todo de la capa lï¿½gica para buscar UN artista.
+	// se solicita el ID como parï¿½metro
 	public Artista buscarUnArtista(int id) {
 
 		return controlPersis.buscarArtista(id);
 
 	}
 
-	// Método de la capa lógica para buscar TODOS los artista.
+	// Mï¿½todo de la capa lï¿½gica para buscar TODOS los artista.
 	public List<Artista> listarArtistas() {
 		return controlPersis.buscarTodosLosArtistas();
 	}
 
-	// Método de la capa lógica para eliminar un artista.
-	// se solicita el ID como parámetro
+	// Mï¿½todo de la capa lï¿½gica para eliminar un artista.
+	// se solicita el ID como parï¿½metro
 	public void eliminarArtista(int id) throws Exception {
 
 		// Primero, hay que buscar en la BD que exista ese elemento
 		Artista art = controlPersis.buscarArtista(id);
 
-		// Si el artista es nulo (no existe), lanzar excepción (error).
+		// Si el artista es nulo (no existe), lanzar excepciï¿½n (error).
 		if (art == null) {
 			throw new Exception("No existe un artista con ID " + id);
 		}
-		// Si existe, ahí si se puede continuar con la eliminación
+		// Si existe, ahï¿½ si se puede continuar con la eliminaciï¿½n
 		controlPersis.eliminarArtista(id);
 	}
 
-	// Método de la capa lógica para eliminar un artista.
-	// se solicita el ID como parámetro
+	// Mï¿½todo de la capa lï¿½gica para eliminar un artista.
+	// se solicita el ID como parï¿½metro
 	public void editarArtista(Artista art) throws Exception {
 		// Verificar que exista en BD antes de editar
 		Artista existente = controlPersis.buscarArtista(art.getId());
@@ -68,37 +76,45 @@ public class ControladoraLogica {
 			throw new Exception("No existe un artista con ID " + art.getId());
 		}
 
-		// Validación: el artista debe tener un nombre
+		// Validaciï¿½n: el artista debe tener un nombre
 		if (art.getNombre() == null || art.getNombre().isEmpty()) {
 			throw new Exception("El artista debe tener un nombre.");
 		}
-		// Validación: el artista debe tener un género musical
+		// Validaciï¿½n: el artista debe tener un gï¿½nero musical
 		if (art.getGeneroMusical() == null || art.getGeneroMusical().isEmpty()) {
-			throw new Exception("El artista debe tener un género musical.");
+			throw new Exception("El artista debe tener un gï¿½nero musical.");
 		}
-		// Validación: la edad debe ser positiva
+		
+		// Validaciï¿½n: el artista debe tener una nacionalidad
+		if (art.getNacionalidad() == null || art.getNacionalidad().isEmpty()) {
+			throw new Exception("El artista debe tener una nacionalidad.");
+		}
+		// Validaciï¿½n: la edad debe ser positiva
 		if (art.getEdad() <= 0) {
 			throw new Exception("La edad del artista debe ser mayor a 0.");
+		}  else if (art.getEdad()  > 120) {
+			throw new Exception("La edad del artista debe ser menor a 120.");
 		}
-		// Si todo esta OK, ahí si se puede continuar con la eliminación
+
+		// Si todo esta OK, ahï¿½ si se puede continuar con la eliminaciï¿½n
 		controlPersis.editarArtista(art);
 	}
 
-	// ----- CANCIÓN -----
-	// Método de la capa lógica para crear una canción.
+	// ----- CANCIï¿½N -----
+	// Mï¿½todo de la capa lï¿½gica para crear una canciï¿½n.
 	// Se valida que tenga datos coherentes antes de persistirla.
 	public void crearCancion(Cancion can) throws Exception {
-		// Validación: el título no puede estar vacío
+		// Validaciï¿½n: el tï¿½tulo no puede estar vacï¿½o
 		if (can.getTitulo() == null || can.getTitulo().isEmpty()) {
-			throw new Exception("La canción debe tener un título.");
+			throw new Exception("La canciï¿½n debe tener un tï¿½tulo.");
 		}
-		// Validación: la duración debe ser mayor a cero
+		// Validaciï¿½n: la duraciï¿½n debe ser mayor a cero
 		if (can.getDuracion() <= 0) {
-			throw new Exception("La duración debe ser mayor a 0 segundos.");
+			throw new Exception("La duraciï¿½n debe ser mayor a 0 segundos.");
 		}
-		// Validación: el año debe tener sentido
+		// Validaciï¿½n: el aï¿½o debe tener sentido
 		if (can.getAnio() < 1900) {
-			throw new Exception("El año de la canción debe ser válido.");
+			throw new Exception("El aï¿½o de la canciï¿½n debe ser vï¿½lido.");
 		}
 
 		// Si pasa todas las validaciones, se guarda en la base de datos
