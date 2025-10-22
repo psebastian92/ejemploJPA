@@ -12,7 +12,7 @@
         <h3 class="text-center">⚠️ Ocurrió un error</h3>
         <p class="text-center">${error}</p>
         <div class="text-center">
-            <a href="${pageContext.request.contextPath}/vistas/index.jsp" class="btn btn-outline-light">Volver</a>
+            <a href="${pageContext.request.contextPath}/index.jsp" class="btn btn-outline-light">Volver</a>
         </div>
     </div>
 </div>

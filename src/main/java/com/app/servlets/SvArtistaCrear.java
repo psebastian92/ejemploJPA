@@ -44,7 +44,7 @@ public class SvArtistaCrear extends HttpServlet {
 
         try {
             control.crearArtista(art);
-            response.sendRedirect("SvArtista"); // redirige al listado
+            response.sendRedirect("SvArtistaListar"); // redirige al listado
         } catch (Exception e) {
             request.setAttribute("error", e.getMessage());
             request.getRequestDispatcher("vistas/error.jsp").forward(request, response);

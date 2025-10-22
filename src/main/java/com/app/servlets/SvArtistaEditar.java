@@ -44,6 +44,6 @@ public class SvArtistaEditar extends HttpServlet {
 			request.setAttribute("error", e.getMessage());
 			request.getRequestDispatcher("error.jsp").forward(request, response);
 		}
-		response.sendRedirect("SvArtista");
+		response.sendRedirect("SvArtistaListar");
 	}
 }

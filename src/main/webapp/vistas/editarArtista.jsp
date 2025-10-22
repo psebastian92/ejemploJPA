@@ -11,7 +11,7 @@
     <div class="card bg-secondary shadow-lg p-4 rounded-4">
         <h2 class="text-center text-warning mb-4">Editar Artista</h2>
 
-        <form action="SvEditarArtista" method="post">
+        <form action="${pageContext.request.contextPath}/SvEditarArtista" method="post">
             <input type="hidden" name="id" value="${art.id}">
 
             <div class="mb-3">
@@ -31,7 +31,7 @@
 
             <div class="text-center mt-4">
                 <button type="submit" class="btn btn-warning fw-bold">Guardar Cambios</button>
-                <a href="SvArtista" class="btn btn-outline-light ms-2">Cancelar</a>
+                <a href="${pageContext.request.contextPath}/SvArtista" class="btn btn-outline-light ms-2">Cancelar</a>
             </div>
         </form>
     </div>

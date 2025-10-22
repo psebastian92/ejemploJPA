@@ -23,6 +23,6 @@ public class SvArtistaEliminar extends HttpServlet {
 			request.setAttribute("error", e.getMessage());
 			request.getRequestDispatcher("vistas/error.jsp").forward(request, response);
 		}
-		response.sendRedirect("SvArtista"); // recarga la lista
+		response.sendRedirect("SvArtistaListar"); // recarga la lista
 	}
 }

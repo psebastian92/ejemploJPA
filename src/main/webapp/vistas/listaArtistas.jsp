@@ -51,7 +51,7 @@
         </table>
 
         <div class="text-center mt-4">
-            <a href="${pageContext.request.contextPath}/vistas/index.jsp" class="btn btn-outline-light">Volver</a>
+            <a href="${pageContext.request.contextPath}/index.jsp" class="btn btn-outline-light">Volver</a>
         </div>
     </div>
 </div>
