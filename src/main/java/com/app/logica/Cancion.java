@@ -7,11 +7,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Cancion implements Serializable{
+public class Cancion implements Serializable {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	@Basic
@@ -19,13 +21,16 @@ public class Cancion implements Serializable{
 	private float duracion;
 	private int anio;
 
-	public Cancion () {
-		
+	@ManyToOne
+	@JoinColumn(name = "artista_id") // FK en la tabla cancion
+	private Artista artista;
+
+	public Cancion() {
+
 	}
-	
+
 	public Cancion(String titulo, float duracion, int anio) {
 		super();
-		this.id = id;
 		this.titulo = titulo;
 		this.duracion = duracion;
 		this.anio = anio;
@@ -61,6 +66,14 @@ public class Cancion implements Serializable{
 
 	public void setAnio(int anio) {
 		this.anio = anio;
+	}
+	
+	public Artista getArtista() {
+	    return artista;
+	}
+
+	public void setArtista(Artista artista) {
+	    this.artista = artista;
 	}
 
 }

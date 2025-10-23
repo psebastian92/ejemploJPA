@@ -13,39 +13,37 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "SvArtistaCrear", urlPatterns = {"/SvArtistaCrear"})
-public class SvArtistaCrear extends HttpServlet {
+@WebServlet(name = "SvCancionCrear", urlPatterns = {"/SvCancionCrear"})
+public class SvCancionCrear extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
     ControladoraLogica control = new ControladoraLogica();
 
-    // 🔹 Mostrar lista de artistas
+    // 🔹 Mostrar lista de canciones
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Cancion> listaCanciones = control.listarCanciones();
-        request.setAttribute("listaCanciones", listaCanciones);
-        request.getRequestDispatcher("vistas/listaArtistas.jsp").forward(request, response);
+        List<Artista> listaArtistas = control.listarArtistas();
+        request.setAttribute("listaArtistas", listaArtistas);
+        request.getRequestDispatcher("vistas/crearCancion.jsp").forward(request, response);
     }
 
-    // 🔹 Crear un nuevo artista
+    // 🔹 Crear una nueva cancion
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String nombre = request.getParameter("nombre");
-        String genero = request.getParameter("genero");
-        String nacionalidad = request.getParameter("nacionalidad");
-        int edad = Integer.parseInt(request.getParameter("edad"));
-
-        Artista art = new Artista();
-        art.setNombre(nombre);
-        art.setGeneroMusical(genero);
-        art.setNacionalidad(nacionalidad);
-        art.setEdad(edad);
+        String titulo = request.getParameter("titulo");
+        float duracion = Float.parseFloat(request.getParameter("duracion")); 
+        int anio = Integer.parseInt(request.getParameter("anio"));
+        int idArtista = Integer.parseInt(request.getParameter("artista_id"));
+        
+        Artista artista = control.buscarUnArtista(idArtista);
+        Cancion nuevaCancion = new Cancion(titulo, duracion, anio);
+        nuevaCancion.setArtista(artista);
 
         try {
-            control.crearArtista(art);
-            response.sendRedirect("SvArtistaListar"); // redirige al listado
+            control.crearCancion(nuevaCancion);
+            response.sendRedirect("SvCancionListar"); // redirige al listado
         } catch (Exception e) {
             request.setAttribute("error", e.getMessage());
             request.getRequestDispatcher("vistas/error.jsp").forward(request, response);

@@ -1,11 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	version="2.5">
-	<welcome-file-list>
-
-		<welcome-file>index.jsp</welcome-file>
-
-	</welcome-file-list>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>SvCancionCrear</display-name>
+    <servlet-name>SvCancionCrear</servlet-name>
+    <servlet-class>com.app.servlets.SvCancionCrear</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SvCancionCrear</servlet-name>
+    <url-pattern>/SvCancionCrear</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SvCancionEditar</display-name>
+    <servlet-name>SvCancionEditar</servlet-name>
+    <servlet-class>com.app.servlets.SvCancionEditar</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SvCancionEditar</servlet-name>
+    <url-pattern>/SvCancionEditar</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SvCancionEliminar</display-name>
+    <servlet-name>SvCancionEliminar</servlet-name>
+    <servlet-class>com.app.servlets.SvCancionEliminar</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SvCancionEliminar</servlet-name>
+    <url-pattern>/SvCancionEliminar</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SvCancionListar</display-name>
+    <servlet-name>SvCancionListar</servlet-name>
+    <servlet-class>com.app.servlets.SvCancionListar</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SvCancionListar</servlet-name>
+    <url-pattern>/SvCancionListar</url-pattern>
+  </servlet-mapping>
 </web-app>

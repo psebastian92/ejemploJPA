@@ -1,5 +1,7 @@
 package com.app.persistencia;
 
+import java.util.List;
+
 import com.app.logica.Cancion;
 
 import jakarta.persistence.EntityManager;
@@ -7,43 +9,114 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
 public class CancionJpaController {
-	
-	// "Fábrica" de conexiones con la base de datos.
-	// Nos permite crear EntityManager, que son los que realmente hacen el trabajo.
-	private EntityManagerFactory emf = null;
 
-	// En el constructor indicamos qué unidad de persistencia usar.
-	// El nombre "musicaPU" debe coincidir con el que está en persistence.xml.
-	public CancionJpaController() {
-		emf = Persistence.createEntityManagerFactory("musicaPU");
-	}
+    // "FÃ¡brica" de conexiones con la base de datos.
+    // Nos permite crear EntityManager, que son los que realmente hacen el trabajo.
+    private EntityManagerFactory emf = null;
 
-	// Método que devuelve un nuevo EntityManager (una conexión lista para trabajar).
-	// Podés pensarlo como: "dame un empleado que se conecte a la BD".
-	public EntityManager getEntityManager() {
-		return emf.createEntityManager();
-	}
+    // En el constructor indicamos quÃ© unidad de persistencia usar.
+    // El nombre "musicaPU" debe coincidir con el que estÃ¡ en persistence.xml.
+    public CancionJpaController() {
+        emf = Persistence.createEntityManagerFactory("musicaPU");
+    }
 
-	// Método para crear (persistir) una Canción en la base de datos.
-	public void crear(Cancion canc) {
-		EntityManager em = null;
-		try {
-			// Abrimos la conexión (traemos al empleado).
-			em = getEntityManager();
-			
-			// Iniciamos la transacción (arranca la promesa de que se hará todo o nada).
-			em.getTransaction().begin();
-			
-			// Guardamos el objeto Cancion en la base (todavía no confirmado).
-			em.persist(canc);
-			
-			// Confirmamos la transacción: ahora sí, el dato queda guardado en la BD.
-			em.getTransaction().commit();
-		} finally {
-			// Cerramos la conexión si estaba abierta (el empleado termina su turno).
-			if (em != null) {
-				em.close();
-			}
-		}
-	}
+    // MÃ©todo que devuelve un nuevo EntityManager (una conexiÃ³n lista para trabajar).
+    // PodÃ©s pensarlo como: "dame un empleado que se conecte a la BD".
+    public EntityManager getEntityManager() {
+        return emf.createEntityManager();
+    }
+
+    // ====================================================
+    //                  MÃ‰TODOS CRUD
+    // ====================================================
+
+    // CREAR CANCIÃ“N
+    public void crear(Cancion canc) {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+            em.persist(canc);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em != null && em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
+    // BUSCAR UNA CANCIÃ“N POR ID
+    public Cancion buscarUnoSolo(int id) {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            return em.find(Cancion.class, id);
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
+    // BUSCAR TODAS LAS CANCIONES
+    public List<Cancion> buscarTodos() {
+        EntityManager em = getEntityManager();
+        try {
+            String jpql = "SELECT c FROM " + Cancion.class.getSimpleName() + " c";
+            return em.createQuery(jpql, Cancion.class).getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    // EDITAR CANCIÃ“N
+    public void editar(Cancion canc) {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+            em.merge(canc);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em != null && em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
+    // ELIMINAR CANCIÃ“N
+    public void destruir(int id) {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+
+            Cancion canc = em.find(Cancion.class, id);
+            if (canc != null) {
+                em.remove(canc);
+            }
+
+            em.getTransaction().commit();
+            System.out.println("CanciÃ³n eliminada con Ã©xito!");
+        } catch (Exception e) {
+            if (em != null && em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
 }

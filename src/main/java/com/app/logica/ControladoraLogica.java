@@ -120,5 +120,40 @@ public class ControladoraLogica {
 		// Si pasa todas las validaciones, se guarda en la base de datos
 		controlPersis.crearCancion(can);
 	}
+	
+	public Cancion buscarUnaCancion(int id) {
+		return controlPersis.buscarCancion(id);
+	}
+
+	public List<Cancion> listarCanciones() {
+		return controlPersis.buscarTodasLasCanciones();
+	}
+
+	public void eliminarCancion(int id) throws Exception {
+		Cancion can = controlPersis.buscarCancion(id);
+		if (can == null) {
+			throw new Exception("No existe una canción con ID " + id);
+		}
+		controlPersis.eliminarCancion(id);
+	}
+
+	public void editarCancion(Cancion can) throws Exception {
+		Cancion existente = controlPersis.buscarCancion(can.getId());
+		if (existente == null) {
+			throw new Exception("No existe una canción con ID " + can.getId());
+		}
+
+		if (can.getTitulo() == null || can.getTitulo().isEmpty()) {
+			throw new Exception("La canción debe tener un título.");
+		}
+		if (can.getDuracion() <= 0) {
+			throw new Exception("La duración debe ser mayor a 0 segundos.");
+		}
+		if (can.getAnio() < 1900) {
+			throw new Exception("El año de la canción debe ser válido (>= 1900).");
+		}
+
+		controlPersis.editarCancion(can);
+	}
 
 }

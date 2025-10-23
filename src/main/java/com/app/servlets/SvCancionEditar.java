@@ -2,6 +2,7 @@ package com.app.servlets;
 
 import java.io.IOException;
 import com.app.logica.Artista;
+import com.app.logica.Cancion;
 import com.app.logica.ControladoraLogica;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -9,8 +10,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "SvEditarArtista", urlPatterns = { "/SvEditarArtista" })
-public class SvArtistaEditar extends HttpServlet {
+@WebServlet(name = "SvCancionEditar", urlPatterns = { "/SvCancionEditar" })
+public class SvCancionEditar extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	ControladoraLogica control = new ControladoraLogica();
 
@@ -20,10 +21,10 @@ public class SvArtistaEditar extends HttpServlet {
 			throws ServletException, IOException {
 	
 		int id = Integer.parseInt(request.getParameter("id"));
-		Artista art = control.buscarUnArtista(id);
+		Cancion can = control.buscarUnaCancion(id);
 		
-		request.setAttribute("art", art);
-		request.getRequestDispatcher("vistas/editarArtista.jsp").forward(request, response);
+		request.setAttribute("can", can);
+		request.getRequestDispatcher("vistas/editarCancion.jsp").forward(request, response);
 		
 		
 	}
@@ -34,21 +35,17 @@ public class SvArtistaEditar extends HttpServlet {
 			throws ServletException, IOException {
 	
 		int id = Integer.parseInt(request.getParameter("id"));
-		String nombre = request.getParameter("nombre");
-		String genero = request.getParameter("genero");
-		String nacionalidad = request.getParameter("nacionalidad");
-		int edad = Integer.parseInt(request.getParameter("edad"));
+		String titulo = request.getParameter("nombre");
+		float duracion = Float.parseFloat(request.getParameter("duracion"));
+		int anio = Integer.parseInt(request.getParameter("anio"));
 
-
+		Cancion can = control.buscarUnaCancion(id);
+		can.setTitulo(titulo);
+		can.setDuracion(duracion);
+		can.setAnio(anio);
 		
-		Artista art = control.buscarUnArtista(id);
-		art.setNombre(nombre);
-		art.setGeneroMusical(genero);
-		art.setNacionalidad(nacionalidad);
-		art.setEdad(edad);
-
 		try {
-			control.editarArtista(art);
+			control.editarCancion(can);
 		} catch (Exception e) {
 			request.setAttribute("error", e.getMessage());
 			request.getRequestDispatcher("error.jsp").forward(request, response);

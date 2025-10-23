@@ -1,12 +1,16 @@
 package com.app.logica;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Artista implements Serializable {
@@ -20,6 +24,9 @@ public class Artista implements Serializable {
 	private String generoMusical;
 	private String nacionalidad;
 	private int edad;
+	
+    @OneToMany(mappedBy = "artista", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Cancion> canciones = new ArrayList<>();
 
 	public Artista() {
 

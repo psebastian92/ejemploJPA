@@ -12,8 +12,8 @@ import com.app.persistencia.ControladoraPersistencia;
 
 public class Main {
 	public static void main(String[] args) {
-		Artista a1 = new Artista("Ciro Martínez", "Rock nacional", "argentino", 57);
-		Artista a2 = new Artista("Pity González", "Rock nacional", "argentino", 64);
+		Artista a1 = new Artista("Ciro Martï¿½nez", "Rock nacional", "argentino", 57);
+		Artista a2 = new Artista("Pity Gonzï¿½lez", "Rock nacional", "argentino", 64);
 
 		Cancion c1 = new Cancion("Paciencia", 5.16f, 2025);
 		Cancion c2 = new Cancion("La argentinidad al palo", 5.3f, 2004);
@@ -22,14 +22,17 @@ public class Main {
 		Scanner entrada = new Scanner(System.in);
 
 		/*----- CREAR UN DATO-------*/
-//		try {
-//			conLog.crearArtista(a1);
-//			conLog.crearArtista(a2);
-//			conLog.crearCancion(c1);
-//			conLog.crearCancion(c2);
-//		} catch (Exception e) {
-//			System.out.println("No se pudo crear el elemento: " + e.getMessage());
-//		}
+		try {
+			conLog.crearArtista(a1);
+			conLog.crearArtista(a2);
+			c1.setArtista(a1);
+			conLog.crearCancion(c1);
+			c2.setArtista(a2);
+			conLog.crearCancion(c2);
+			
+		} catch (Exception e) {
+			System.out.println("No se pudo crear el elemento: " + e.getMessage());
+		}
 
 		/*----- BUSCAR UN DATO-------*/
 //		Artista artEncontrado = conLog.buscarUnArtista(6);
@@ -45,7 +48,7 @@ public class Main {
 		/*----- ELIMINAR UN DATO-------*/
 		System.out.println("\n-------------------");
 		try {
-			System.out.println("Ingrese dato a eliminar según ID: ");
+			System.out.println("Ingrese dato a eliminar segï¿½n ID: ");
 			conLog.eliminarArtista(entrada.nextInt());
 		} catch (Exception e) {
 			System.out.println("Error al eliminar: " + e.getMessage());
@@ -62,9 +65,9 @@ public class Main {
 //			return; // o volver a pedir el ID
 //		}
 //
-//		System.out.println("¿Qué desea editar?");
+//		System.out.println("ï¿½Quï¿½ desea editar?");
 //		System.out.println("1. Nombre");
-//		System.out.println("2. Género Musical");
+//		System.out.println("2. Gï¿½nero Musical");
 //		System.out.println("3. Nacionalidad");
 //		System.out.println("4. Edad");
 //
@@ -77,7 +80,7 @@ public class Main {
 //			artistaEditable.setNombre(entrada.nextLine());
 //			break;
 //		case 2:
-//			System.out.println("Nuevo género musical: ");
+//			System.out.println("Nuevo gï¿½nero musical: ");
 //			artistaEditable.setGeneroMusical(entrada.nextLine());
 //			break;
 //		case 3:
@@ -89,7 +92,7 @@ public class Main {
 //			artistaEditable.setEdad(entrada.nextInt());
 //			break;
 //		default:
-//			System.out.println("Opción inválida.");
+//			System.out.println("Opciï¿½n invï¿½lida.");
 //		}
 //
 //		try {
