@@ -24,9 +24,9 @@ public class Artista implements Serializable {
 	private String generoMusical;
 	private String nacionalidad;
 	private int edad;
-	
-    @OneToMany(mappedBy = "artista", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Cancion> canciones = new ArrayList<>();
+
+	@OneToMany(mappedBy = "artista", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Cancion> listaCanciones = new ArrayList<>();
 
 	public Artista() {
 
@@ -85,5 +85,13 @@ public class Artista implements Serializable {
 	public void setEdad(int edad) {
 		this.edad = edad;
 	}
+
+	public List<Cancion> getListaCanciones() {
+		return listaCanciones;
+	}
+	
+    public void setListaCanciones(List<Cancion> listaCanciones) {
+        this.listaCanciones = listaCanciones;
+    }
 
 }

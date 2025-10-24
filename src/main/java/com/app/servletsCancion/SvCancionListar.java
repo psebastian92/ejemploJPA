@@ -1,4 +1,4 @@
-package com.app.servlets;
+package com.app.servletsCancion;
 
 import java.io.IOException;
 import java.util.List;
@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "SvArtistaListar", urlPatterns = {"/SvArtistaListar"})
+@WebServlet(name = "SvCancionListar", urlPatterns = {"/SvCancionListar"})
 public class SvCancionListar extends HttpServlet {
     private static final long serialVersionUID = 1L;
     ControladoraLogica control = new ControladoraLogica();

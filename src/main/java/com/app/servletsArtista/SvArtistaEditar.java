@@ -1,4 +1,4 @@
-package com.app.servlets;
+package com.app.servletsArtista;
 
 import java.io.IOException;
 import com.app.logica.Artista;

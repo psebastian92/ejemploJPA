@@ -7,39 +7,40 @@ import com.app.logica.Artista;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import jakarta.persistence.TypedQuery;
 
 public class ArtistaJpaController {
 
-	// "Fábrica" de conexiones (EntityManagerFactory).
+	// "Fï¿½brica" de conexiones (EntityManagerFactory).
 	// Sirve para crear EntityManager, que son los que realmente hablan con la BD.
 	private EntityManagerFactory emf = null;
 
-	// En el constructor decimos con qué unidad de persistencia vamos a trabajar.
-	// Esa unidad está definida en persistence.xml con el nombre "musicaPU".
+	// En el constructor decimos con quï¿½ unidad de persistencia vamos a trabajar.
+	// Esa unidad estï¿½ definida en persistence.xml con el nombre "musicaPU".
 	public ArtistaJpaController() {
 		emf = Persistence.createEntityManagerFactory("musicaPU");
 	}
 
-	// Método que crea y devuelve un nuevo "EntityManager".
+	// Mï¿½todo que crea y devuelve un nuevo "EntityManager".
 	// Pensalo como: "dame un empleado que se conecte a la base para trabajar".
 	public EntityManager getEntityManager() {
 		return emf.createEntityManager();
 	}
 
-	// Método para guardar un Artista en la base de datos.
+	// Mï¿½todo para guardar un Artista en la base de datos.
 	public void crear(Artista art) {
 		EntityManager em = null;
 		try {
-			// Abrimos la conexión (pedimos un empleado).
+			// Abrimos la conexiï¿½n (pedimos un empleado).
 			em = getEntityManager();
 
-			// Iniciamos una transacción: empieza la "promesa".
+			// Iniciamos una transacciï¿½n: empieza la "promesa".
 			em.getTransaction().begin();
 
-			// Guardamos el objeto en la base (pero todavía no está confirmado).
+			// Guardamos el objeto en la base (pero todavï¿½a no estï¿½ confirmado).
 			em.persist(art);
 
-			// Confirmamos la transacción: ahora sí el objeto queda guardado.
+			// Confirmamos la transacciï¿½n: ahora sï¿½ el objeto queda guardado.
 			em.getTransaction().commit();
 		} catch (Exception e) {
 			// Si algo falla, deshacemos los cambios
@@ -47,7 +48,7 @@ public class ArtistaJpaController {
 				em.getTransaction().rollback();
 			}
 		} finally {
-			// Cerramos la conexión (el empleado ya no hace falta).
+			// Cerramos la conexiï¿½n (el empleado ya no hace falta).
 			if (em != null) {
 				em.close();
 			}
@@ -58,15 +59,15 @@ public class ArtistaJpaController {
 		EntityManager em = null;
 
 		try {
-			// Abrimos la conexión (pedimos un empleado).
+			// Abrimos la conexiï¿½n (pedimos un empleado).
 			em = getEntityManager();
 			// Se busca un artista en la BD con el ID que viene desde el main
 			Artista art = em.find(Artista.class, id);
 
-			// La función es del tipo "Artista", por lo que generará un "Artista" como dato
+			// La funciï¿½n es del tipo "Artista", por lo que generarï¿½ un "Artista" como dato
 			return art;
-		} 
-		
+		}
+
 		finally {
 			if (em != null) {
 				em.close();
@@ -78,8 +79,9 @@ public class ArtistaJpaController {
 	public List<Artista> buscarTodos() {
 		EntityManager em = getEntityManager();
 		try {
-			String jpql = "SELECT a FROM " + Artista.class.getSimpleName() + " a";
-			return em.createQuery(jpql, Artista.class).getResultList();
+			String jpql = "SELECT DISTINCT a FROM Artista a LEFT JOIN FETCH a.listaCanciones";
+			TypedQuery<Artista> query = em.createQuery(jpql, Artista.class);
+			return query.getResultList();
 		} finally {
 			em.close();
 		}
@@ -88,24 +90,24 @@ public class ArtistaJpaController {
 	public void destruir(int id) {
 		EntityManager em = null;
 		try {
-			// Abrimos la conexión (pedimos un empleado).
+			// Abrimos la conexiï¿½n (pedimos un empleado).
 			em = getEntityManager();
 
-			// Iniciamos una transacción: empieza la "promesa".
+			// Iniciamos una transacciï¿½n: empieza la "promesa".
 			em.getTransaction().begin();
 
 			// Se busca un artista con el ID que viene desde el main
 			Artista art = em.find(Artista.class, id);
 
-			// Si el artista existe, se solicitará que sea borrado
+			// Si el artista existe, se solicitarï¿½ que sea borrado
 			if (art != null) {
 				em.remove(art);
 			}
-			// Confirmamos la transacción
+			// Confirmamos la transacciï¿½n
 			em.getTransaction().commit();
-			System.out.println("Artista elimnado con éxito!");
+			System.out.println("Artista elimnado con ï¿½xito!");
 		} finally {
-			// Cerramos la conexión (el empleado ya no hace falta).
+			// Cerramos la conexiï¿½n (el empleado ya no hace falta).
 			if (em != null) {
 				em.close();
 			}
@@ -116,19 +118,19 @@ public class ArtistaJpaController {
 		EntityManager em = null;
 
 		try {
-			// Abrimos la conexión (pedimos un empleado).
+			// Abrimos la conexiï¿½n (pedimos un empleado).
 			em = getEntityManager();
 
-			// Iniciamos una transacción: empieza la "promesa".
+			// Iniciamos una transacciï¿½n: empieza la "promesa".
 			em.getTransaction().begin();
 
-			// Se solicitará la edición
+			// Se solicitarï¿½ la ediciï¿½n
 			em.merge(art);
 
-			// Confirmamos la transacción
+			// Confirmamos la transacciï¿½n
 			em.getTransaction().commit();
 		} finally {
-			// Cerramos la conexión (el empleado ya no hace falta).
+			// Cerramos la conexiï¿½n (el empleado ya no hace falta).
 			if (em != null) {
 				em.close();
 			}

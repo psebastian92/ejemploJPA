@@ -101,6 +101,9 @@
             <div class="text-center">
                 <button type="submit" class="btn btn-warning px-5 py-2 me-2">➕ Agregar</button>
                 <a href="${pageContext.request.contextPath}/SvCancionListar" class="btn btn-outline-light px-5 py-2">📜 Ver Canciones</a>
+                <a
+					href="<%=request.getContextPath()%>/index.jsp"
+					class="btn btn-outline-light">Volver</a>
             </div>
         </form>
 
