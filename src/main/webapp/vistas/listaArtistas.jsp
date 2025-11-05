@@ -90,6 +90,12 @@
       </tbody>
     </table>
     <div class="text-center mt-4">
+    <a href="<%= request.getContextPath() %>/SvPerfilListar" class="btn btn-outline-info">
+        👤 Ver Perfiles
+    </a>
+</div>
+    
+    <div class="text-center mt-4">
       <a href="<%= request.getContextPath() %>/index.jsp" class="btn btn-outline-light">Volver</a>
     </div>
   </div>

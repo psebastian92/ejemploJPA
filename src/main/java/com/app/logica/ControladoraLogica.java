@@ -155,5 +155,63 @@ public class ControladoraLogica {
 
 		controlPersis.editarCancion(can);
 	}
+	
+	 // ----- PERFIL ARTISTA -----
+    public void crearPerfilArtista(PerfilArtista perfil) throws Exception {
+        if (perfil.getBiografia() == null || perfil.getBiografia().isEmpty()) {
+            throw new Exception("La biografía del artista no puede estar vacía.");
+        }
+        if (perfil.getFotoPerfilUrl() == null || perfil.getFotoPerfilUrl().isEmpty()) {
+            throw new Exception("Debe haber una foto de perfil.");
+        }
+        if (perfil.getFotoPortadaUrl() == null || perfil.getFotoPortadaUrl().isEmpty()) {
+            throw new Exception("Debe haber una foto de portada.");
+        }
+        if (perfil.getCantSeguidores() < 0) {
+            throw new Exception("La cantidad de seguidores no puede ser negativa.");
+        }
+        if (perfil.getArtista() == null) {
+            throw new Exception("El perfil debe estar asociado a un artista.");
+        }
+
+        controlPersis.crearPerfilArtista(perfil);
+    }
+
+    public PerfilArtista buscarPerfilArtista(int id) {
+        return controlPersis.buscarPerfilArtista(id);
+    }
+
+    public List<PerfilArtista> listarPerfilesArtistas() {
+        return controlPersis.buscarTodosLosPerfiles();
+    }
+
+    public void editarPerfilArtista(PerfilArtista perfil) throws Exception {
+        PerfilArtista existente = controlPersis.buscarPerfilArtista(perfil.getId());
+        if (existente == null) {
+            throw new Exception("No existe un perfil con ID " + perfil.getId());
+        }
+        if (perfil.getBiografia() == null || perfil.getBiografia().isEmpty()) {
+            throw new Exception("La biografía del artista no puede estar vacía.");
+        }
+        if (perfil.getFotoPerfilUrl() == null || perfil.getFotoPerfilUrl().isEmpty()) {
+            throw new Exception("Debe haber una foto de perfil.");
+        }
+        if (perfil.getFotoPortadaUrl() == null || perfil.getFotoPortadaUrl().isEmpty()) {
+            throw new Exception("Debe haber una foto de portada.");
+        }
+        if (perfil.getCantSeguidores() < 0) {
+            throw new Exception("La cantidad de seguidores no puede ser negativa.");
+        }
+
+        controlPersis.editarPerfilArtista(perfil);
+    }
+
+    public void eliminarPerfilArtista(int id) throws Exception {
+        PerfilArtista perfil = controlPersis.buscarPerfilArtista(id);
+        if (perfil == null) {
+            throw new Exception("No existe un perfil con ID " + id);
+        }
+        controlPersis.eliminarPerfilArtista(id);
+    }
 
 }

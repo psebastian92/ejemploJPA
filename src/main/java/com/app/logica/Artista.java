@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Artista implements Serializable {
@@ -24,6 +25,9 @@ public class Artista implements Serializable {
 	private String generoMusical;
 	private String nacionalidad;
 	private int edad;
+	
+	@OneToOne(mappedBy = "artista", cascade = CascadeType.ALL, orphanRemoval = true)
+	private PerfilArtista perfil;
 
 	@OneToMany(mappedBy = "artista", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Cancion> listaCanciones = new ArrayList<>();
@@ -93,5 +97,17 @@ public class Artista implements Serializable {
     public void setListaCanciones(List<Cancion> listaCanciones) {
         this.listaCanciones = listaCanciones;
     }
+    
+    public PerfilArtista getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(PerfilArtista perfil) {
+        this.perfil = perfil;
+        if (perfil != null) {
+            perfil.setArtista(this); // sincroniza ambas entidades
+        }
+    }
+
 
 }
